@@ -6,6 +6,36 @@ aipm should be designed as a layered system that separates portable artifact def
 
 ## Layers
 
+The architecture is easiest to reason about in two complementary views:
+
+1. **logical system layers** (how runtime responsibilities are separated)
+2. **artifact/contract layers** (how portability is preserved across agents)
+
+## Logical system layers (v1)
+
+```text
+┌────────────────────────────────────────────────────────────┐
+│ UI layer (CLI + future API surface)                       │
+├────────────────────────────────────────────────────────────┤
+│ Core logic layer (manifests, validation, resolver, policy)│
+├────────────────────────────────────────────────────────────┤
+│ Storage layer (.ai project metadata, lock, installed data)│
+├────────────────────────────────────────────────────────────┤
+│ Integration layer (registry adapters, MCP, agent bindings)│
+└────────────────────────────────────────────────────────────┘
+```
+
+- **UI layer**: user-facing commands such as install, resolve, inspect, and binding generation.
+- **Core logic layer**: deterministic business logic for parsing manifests, dependency solving, contract compilation, and policy evaluation.
+- **Storage layer**: repository-local state under `.ai/` (`project.json`, `lock.json`, `installed/`, `resolved/`, `bindings/`).
+- **Integration layer**: external boundaries for registries, MCP server packaging, and agent-specific binding emitters.
+
+### Layering rule
+
+The UI and integrations can depend on core logic, but core logic must not depend on any specific agent runtime or registry implementation details.
+
+## Artifact/contract layers
+
 ### 1. Artifact layer
 
 This is the canonical, agent-neutral package definition layer.
@@ -50,6 +80,28 @@ Examples:
 - local runtime integration files
 
 The binding layer should be optional and generated from the portable source of truth.
+
+## Cross-agent strategy
+
+Cross-agent interoperability is handled through a compile pipeline:
+
+1. **Author once** in an agent-neutral artifact manifest.
+2. **Resolve once** into a normalized repository contract.
+3. **Bind many times** by generating runtime-specific outputs from the same resolved contract.
+
+This means agents collaborate through shared repository state rather than direct coupling:
+
+- all agents read a common resolved contract
+- each adapter generates only the wiring needed for its runtime
+- switching or adding an agent should not require republishing artifacts
+
+## v1 architectural constraints and decisions
+
+- **Portable source of truth**: the artifact manifest and resolved contract are canonical; bindings are derived.
+- **Repository-local determinism**: installation produces lockfile-backed, inspectable state under `.ai/`.
+- **Least privilege**: permissions/capabilities must be explicit and enforceable at resolve/bind time.
+- **No vendor lock-in in core schemas**: agent-specific fields cannot be required for core validity.
+- **Extensible integration boundary**: new agent adapters and registries must be addable without changing core manifest semantics.
 
 ## Repository-local contract
 
