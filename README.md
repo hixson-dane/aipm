@@ -93,6 +93,8 @@ A practical v1 will likely focus on:
 - a CLI for install, inspect, and resolve operations
 - generated resolved state that any agent can consume
 
+For measurable v1 acceptance criteria, see the [Roadmap v1 success criteria](docs/roadmap.md#v1-success-criteria).
+
 ## Development
 
 Because this is an Nx workspace, most work will happen through Nx-managed packages and tasks.
