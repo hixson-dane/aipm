@@ -4,7 +4,7 @@ This directory contains the working design documentation for **aipm**, a package
 
 ## Documents
 
-- [overview.md](overview.md) — product overview, problem statement, and goals
+- [overview.md](overview.md) — product overview, vision, non-goals, and terminology
 - [architecture.md](architecture.md) — conceptual architecture and system layers
 - [artifact-model.md](artifact-model.md) — how artifacts should be represented and resolved
 - [monorepo.md](monorepo.md) — how the Nx monorepo should be organized
