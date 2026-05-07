@@ -1,0 +1,20 @@
+{
+  "name": "installer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/installer/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/installer/dist",
+        "main": "packages/installer/src/index.ts",
+        "tsConfig": "packages/installer/tsconfig.lib.json",
+        "skipTypeCheck": true,
+        "stripLeadingPaths": true
+      }
+    }
+  },
+  "tags": ["scope:installer", "type:lib"]
+}
