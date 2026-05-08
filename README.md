@@ -63,6 +63,13 @@ The monorepo will be used to separate concerns across packages such as:
 - registry and publishing support
 - agent binding adapters
 
+Workspace conventions:
+
+- reusable code lives in `packages/<name>` and uses the npm package name `@aipm/<name>`
+- the package directory, Nx project name, and `scope:<name>` tag should stay aligned
+- repo-local applications should live in `apps/<name>` when introduced, and packages must not depend on apps
+- internal dependencies should continue to follow the documented layering from foundational packages like `core` up to orchestration packages like `cli`
+
 See [docs/monorepo.md](docs/monorepo.md) for more details.
 
 ## Documentation
@@ -80,7 +87,7 @@ Start here:
 
 ## Current status
 
-This project is in the design and foundation stage. The repository currently contains the Nx workspace setup, and the next step is to define the initial package structure and the first working implementation slices.
+This project is in the design and foundation stage. The repository currently contains the Nx workspace setup and initial package structure, and the next step is to build out the first working implementation slices within those packages.
 
 ## Near-term implementation direction
 
