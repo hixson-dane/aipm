@@ -1,8 +1,8 @@
-# `.ai/project.json` Specification
+# `.ai/manifest.json` Specification
 
 ## Purpose
 
-`.ai/project.json` is the repository-level declaration file for aipm artifact dependencies.
+`.ai/manifest.json` is the repository-level declaration file for aipm artifact dependencies.
 It plays the same role that `package.json` plays for npm: it lets a repository state which
 AI artifacts it wants to install and at what version ranges.
 
@@ -20,7 +20,7 @@ the broader `.ai/` directory layout.
 The file **must** be placed at:
 
 ```text
-<repository-root>/.ai/project.json
+<repository-root>/.ai/manifest.json
 ```
 
 No other location is supported.
@@ -136,7 +136,7 @@ fields to be added without breaking existing installations.
 
 ### Lockfile relationship
 
-`.ai/project.json` contains *declared* ranges. `.ai/lock.json` captures the *exact*
+`.ai/manifest.json` contains *declared* ranges. `.ai/lock.json` captures the *exact*
 pinned versions and integrity hashes after resolution. The project file should be
 edited by humans; the lockfile is managed exclusively by aipm.
 
@@ -184,7 +184,7 @@ A minimal valid file with no artifacts declared yet:
 ```
 
 A standalone example file is also available at
-[`docs/examples/project.json`](examples/project.json).
+[`docs/examples/manifest.json`](examples/manifest.json).
 
 ---
 

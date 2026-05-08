@@ -63,7 +63,7 @@ Goal: materialize resolved artifacts into the repository.
 
 Deliverables:
 
-- `.ai/project.json` conventions
+- `.ai/manifest.json` conventions
 - `.ai/installed/` layout
 - lockfile writer
 - initial install and inspect commands

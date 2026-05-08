@@ -3,7 +3,7 @@ import type { DependencyGraph } from '@aipm/resolver';
 import type { RepositoryContract } from '@aipm/contract';
 
 /**
- * The raw structure of `.ai/project.json`.
+ * The raw structure of `.ai/manifest.json`.
  * Declares the artifact dependencies intended for a repository.
  */
 export interface ProjectManifest {
@@ -39,12 +39,12 @@ export interface ProjectManifest {
  */
 export function parseProjectManifest(raw: unknown): ProjectManifest {
   if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) {
-    throw new TypeError('project.json must be a non-null object');
+    throw new TypeError('manifest.json must be a non-null object');
   }
   const obj = raw as Record<string, unknown>;
   if (obj['aipmVersion'] !== '1') {
     throw new TypeError(
-      'project.json "aipmVersion" must be "1" (the only supported schema version)',
+      'manifest.json "aipmVersion" must be "1" (the only supported schema version)',
     );
   }
   if (
@@ -52,25 +52,25 @@ export function parseProjectManifest(raw: unknown): ProjectManifest {
     obj['dependencies'] === null ||
     Array.isArray(obj['dependencies'])
   ) {
-    throw new TypeError('project.json "dependencies" must be an object');
+    throw new TypeError('manifest.json "dependencies" must be an object');
   }
   for (const [name, version] of Object.entries(
     obj['dependencies'] as Record<string, unknown>,
   )) {
     if (typeof version !== 'string' || !version) {
       throw new TypeError(
-        `project.json dependency "${name}" must have a non-empty string version range`,
+        `manifest.json dependency "${name}" must have a non-empty string version range`,
       );
     }
   }
   if (obj['agents'] !== undefined) {
     if (!Array.isArray(obj['agents'])) {
-      throw new TypeError('project.json "agents" must be an array when present');
+      throw new TypeError('manifest.json "agents" must be an array when present');
     }
     for (const agent of obj['agents'] as unknown[]) {
       if (typeof agent !== 'string' || !agent) {
         throw new TypeError(
-          'project.json each entry in "agents" must be a non-empty string',
+          'manifest.json each entry in "agents" must be a non-empty string',
         );
       }
     }
