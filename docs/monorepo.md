@@ -24,11 +24,11 @@ Use one canonical name segment for each project and keep it aligned everywhere:
 
 Examples from the current workspace:
 
-| Directory | Nx project | npm package | Tags |
-| --- | --- | --- | --- |
-| `packages/core` | `core` | `@aipm/core` | `scope:core`, `type:lib` |
+| Directory           | Nx project | npm package      | Tags                         |
+| ------------------- | ---------- | ---------------- | ---------------------------- |
+| `packages/core`     | `core`     | `@aipm/core`     | `scope:core`, `type:lib`     |
 | `packages/manifest` | `manifest` | `@aipm/manifest` | `scope:manifest`, `type:lib` |
-| `packages/cli` | `cli` | `@aipm/cli` | `scope:cli`, `type:cli` |
+| `packages/cli`      | `cli`      | `@aipm/cli`      | `scope:cli`, `type:cli`      |
 
 Additional rules:
 
