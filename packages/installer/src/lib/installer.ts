@@ -3,6 +3,82 @@ import type { DependencyGraph } from '@aipm/resolver';
 import type { RepositoryContract } from '@aipm/contract';
 
 /**
+ * The raw structure of `.ai/project.json`.
+ * Declares the artifact dependencies intended for a repository.
+ */
+export interface ProjectManifest {
+  /**
+   * aipm schema version. Must be `"1"` for the v1 format.
+   * This field enables forward-compatible parsing and migration checks.
+   */
+  aipmVersion: '1';
+  /**
+   * Human-readable description of the project's AI artifact setup.
+   * Intended for documentation purposes only; not used by the resolver.
+   */
+  description?: string;
+  /**
+   * Declared artifact dependencies for this repository.
+   * Maps artifact name (e.g. `"@acme/my-skill"`) to a semver range string
+   * (e.g. `"^1.0.0"`).  An empty object is valid and means no
+   * artifacts are currently declared.
+   */
+  dependencies: Record<string, string>;
+  /**
+   * Target agent runtimes to generate bindings for during install.
+   * When absent, the installer generates bindings for all registered
+   * targets.  When present, only the listed targets are generated.
+   * Example values: `"claude"`, `"copilot"`, `"openai"`.
+   */
+  agents?: string[];
+}
+
+/**
+ * Parse and validate a raw value as a {@link ProjectManifest}.
+ * Throws a {@link TypeError} with an actionable message if validation fails.
+ */
+export function parseProjectManifest(raw: unknown): ProjectManifest {
+  if (typeof raw !== 'object' || raw === null || Array.isArray(raw)) {
+    throw new TypeError('project.json must be a non-null object');
+  }
+  const obj = raw as Record<string, unknown>;
+  if (obj['aipmVersion'] !== '1') {
+    throw new TypeError(
+      'project.json "aipmVersion" must be "1" (the only supported schema version)',
+    );
+  }
+  if (
+    typeof obj['dependencies'] !== 'object' ||
+    obj['dependencies'] === null ||
+    Array.isArray(obj['dependencies'])
+  ) {
+    throw new TypeError('project.json "dependencies" must be an object');
+  }
+  for (const [name, version] of Object.entries(
+    obj['dependencies'] as Record<string, unknown>,
+  )) {
+    if (typeof version !== 'string' || !version) {
+      throw new TypeError(
+        `project.json dependency "${name}" must have a non-empty string version range`,
+      );
+    }
+  }
+  if (obj['agents'] !== undefined) {
+    if (!Array.isArray(obj['agents'])) {
+      throw new TypeError('project.json "agents" must be an array when present');
+    }
+    for (const agent of obj['agents'] as unknown[]) {
+      if (typeof agent !== 'string' || !agent) {
+        throw new TypeError(
+          'project.json each entry in "agents" must be a non-empty string',
+        );
+      }
+    }
+  }
+  return obj as ProjectManifest;
+}
+
+/**
  * Configuration for where aipm writes its installation artifacts.
  */
 export interface InstallPaths {

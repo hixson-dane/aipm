@@ -1,0 +1,11 @@
+{
+  "aipmVersion": "1",
+  "description": "AI artifact dependencies for the Acme platform monorepo",
+  "dependencies": {
+    "@acme/code-review-skill": "^1.2.0",
+    "@acme/git-workflow": "~3.0.0",
+    "@aipm/policy-base": "1.4.2",
+    "@corp/mcp-search-server": "^0.9.0"
+  },
+  "agents": ["claude", "copilot"]
+}

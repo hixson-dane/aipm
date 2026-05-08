@@ -120,7 +120,7 @@ Possible structure:
 
 ### Intended responsibilities
 
-- `project.json`: declared artifact dependencies for the repository
+- `project.json`: declared artifact dependencies for the repository — see [project-json.md](project-json.md) for the full schema and semantics
 - `lock.json`: exact resolved versions and digests
 - `installed/`: unpacked local artifact contents
 - `resolved/`: normalized merged contract for all installed artifacts
