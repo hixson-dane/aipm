@@ -1,0 +1,20 @@
+{
+  "name": "resolver",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/resolver/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "packages/resolver/dist",
+        "main": "packages/resolver/src/index.ts",
+        "tsConfig": "packages/resolver/tsconfig.lib.json",
+        "skipTypeCheck": true,
+        "stripLeadingPaths": true
+      }
+    }
+  },
+  "tags": ["scope:resolver", "type:lib"]
+}
