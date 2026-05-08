@@ -27,7 +27,7 @@ The architecture is easiest to reason about in two complementary views:
 
 - **UI layer**: user-facing commands such as install, resolve, inspect, and binding generation.
 - **Core logic layer**: deterministic business logic for parsing manifests, dependency solving, contract compilation, and policy evaluation.
-- **Storage layer**: repository-local state under `.ai/` (`project.json`, `lock.json`, `installed/`, `resolved/`, `bindings/`).
+- **Storage layer**: repository-local state under `.ai/` (`manifest.json`, `lock.json`, `installed/`, `resolved/`, `bindings/`).
 - **Integration layer**: external boundaries for registries, MCP server packaging, and agent-specific binding emitters.
 
 ### Layering rule
@@ -111,7 +111,7 @@ Possible structure:
 
 ```text
 .ai/
-  project.json
+  manifest.json
   lock.json
   installed/
   resolved/
@@ -120,7 +120,7 @@ Possible structure:
 
 ### Intended responsibilities
 
-- `project.json`: declared artifact dependencies for the repository
+- `manifest.json`: declared artifact dependencies for the repository — see [manifest-json.md](manifest-json.md) for the full schema and semantics
 - `lock.json`: exact resolved versions and digests
 - `installed/`: unpacked local artifact contents
 - `resolved/`: normalized merged contract for all installed artifacts
