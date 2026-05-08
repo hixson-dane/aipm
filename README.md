@@ -79,6 +79,7 @@ Project documentation lives in the [`docs/`](docs/) directory.
 Start here:
 
 - [Documentation index](docs/README.md)
+- [Workspace setup and contributing](docs/contributing.md)
 - [Project overview](docs/overview.md)
 - [Architecture](docs/architecture.md)
 - [Artifact model](docs/artifact-model.md)
@@ -106,14 +107,26 @@ For measurable v1 acceptance criteria, see the [Roadmap v1 success criteria](doc
 
 Because this is an Nx workspace, most work will happen through Nx-managed packages and tasks.
 
-Useful commands:
+For a full onboarding walkthrough — prerequisites, first-time setup, workspace configuration, and all key workflows — see [docs/contributing.md](docs/contributing.md).
+
+Quick reference:
 
 ```sh
-npx nx graph
+# Install dependencies (first time or after pulling changes)
+npm install
+
+# List all workspace projects
 npx nx show projects
+
+# Visualize the dependency graph
+npx nx graph
+
+# Build / test / lint / typecheck a single package
 npx nx build <project>
 npx nx test <project>
 npx nx lint <project>
-```
+npx nx typecheck <project>
 
-As packages are added, this README should evolve to include concrete package names and local development workflows.
+# Build and typecheck everything
+npx nx run-many -t build,typecheck --all
+```

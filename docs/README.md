@@ -4,6 +4,7 @@ This directory contains the working design documentation for **aipm**, a package
 
 ## Documents
 
+- [contributing.md](contributing.md) — workspace setup, developer onboarding, Nx CLI usage, and key workflows
 - [overview.md](overview.md) — product overview, vision, non-goals, and terminology
 - [architecture.md](architecture.md) — conceptual architecture and system layers
 - [artifact-model.md](artifact-model.md) — how artifacts should be represented and resolved
@@ -14,8 +15,9 @@ This directory contains the working design documentation for **aipm**, a package
 
 If you are just getting started:
 
-1. [overview.md](overview.md)
-2. [architecture.md](architecture.md)
-3. [artifact-model.md](artifact-model.md)
-4. [monorepo.md](monorepo.md)
-5. [roadmap.md](roadmap.md)
+1. [contributing.md](contributing.md)
+2. [overview.md](overview.md)
+3. [architecture.md](architecture.md)
+4. [artifact-model.md](artifact-model.md)
+5. [monorepo.md](monorepo.md)
+6. [roadmap.md](roadmap.md)
