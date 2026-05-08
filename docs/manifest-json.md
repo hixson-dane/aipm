@@ -31,18 +31,18 @@ No other location is supported.
 
 ### Top-level object
 
-| Field          | Type                      | Required | Description                                                          |
-| -------------- | ------------------------- | -------- | -------------------------------------------------------------------- |
-| `aipmVersion`  | `"1"`                     | **Yes**  | Schema version. Must be the string `"1"` for the v1 format.         |
-| `dependencies` | `Record<string, string>`  | **Yes**  | Declared artifact dependencies (name → semver range). May be empty. |
-| `description`  | `string`                  | No       | Human-readable description of the project's AI artifact setup.      |
-| `agents`       | `string[]`                | No       | Target agent runtimes to generate bindings for during install.       |
+| Field          | Type                     | Required | Description                                                         |
+| -------------- | ------------------------ | -------- | ------------------------------------------------------------------- |
+| `aipmVersion`  | `"1"`                    | **Yes**  | Schema version. Must be the string `"1"` for the v1 format.         |
+| `dependencies` | `Record<string, string>` | **Yes**  | Declared artifact dependencies (name → semver range). May be empty. |
+| `description`  | `string`                 | No       | Human-readable description of the project's AI artifact setup.      |
+| `agents`       | `string[]`               | No       | Target agent runtimes to generate bindings for during install.      |
 
 ---
 
 ## Field reference
 
-### `aipmVersion` *(required)*
+### `aipmVersion` _(required)_
 
 ```json
 "aipmVersion": "1"
@@ -55,7 +55,7 @@ Identifies the schema version of this file.
 - **Purpose**: enables the toolchain to detect unsupported file formats and provide
   clear upgrade or migration guidance when new schema versions are introduced
 
-### `dependencies` *(required)*
+### `dependencies` _(required)_
 
 ```json
 "dependencies": {
@@ -79,7 +79,7 @@ wants to install.
     resolve time (e.g. `"^1.0.0"`, `"~2.3.0"`, `"1.4.2"`)
   - duplicate keys are not permitted (standard JSON object constraint)
 
-### `description` *(optional)*
+### `description` _(optional)_
 
 ```json
 "description": "AI artifact dependencies for the Acme platform repository"
@@ -91,7 +91,7 @@ readability only; ignored by the resolver and installer.
 - **Type**: string
 - **Rules**: no length constraint; must be a string when present
 
-### `agents` *(optional)*
+### `agents` _(optional)_
 
 ```json
 "agents": ["claude", "copilot"]
@@ -116,9 +116,9 @@ A list of target agent runtimes that bindings should be generated for during ins
 
 The `aipmVersion` field is the primary compatibility signal.
 
-| Value | Status   | Notes                              |
-| ----- | -------- | ---------------------------------- |
-| `"1"` | Current  | The only supported version in v1.  |
+| Value | Status  | Notes                             |
+| ----- | ------- | --------------------------------- |
+| `"1"` | Current | The only supported version in v1. |
 
 **Rules for future versions**:
 
@@ -136,7 +136,7 @@ fields to be added without breaking existing installations.
 
 ### Lockfile relationship
 
-`.ai/manifest.json` contains *declared* ranges. `.ai/lock.json` captures the *exact*
+`.ai/manifest.json` contains _declared_ ranges. `.ai/lock.json` captures the _exact_
 pinned versions and integrity hashes after resolution. The project file should be
 edited by humans; the lockfile is managed exclusively by aipm.
 
@@ -147,14 +147,14 @@ edited by humans; the lockfile is managed exclusively by aipm.
 The following rules are enforced by `parseProjectManifest` (exported from
 `@aipm/installer`).
 
-| # | Rule                                                                                    | Error type    |
-| - | --------------------------------------------------------------------------------------- | ------------- |
-| 1 | The top-level value must be a non-null, non-array object.                               | `TypeError`   |
-| 2 | `aipmVersion` must be present and equal to `"1"`.                                       | `TypeError`   |
-| 3 | `dependencies` must be present and must be a non-null, non-array object.               | `TypeError`   |
-| 4 | Each value in `dependencies` must be a non-empty string.                               | `TypeError`   |
-| 5 | `agents`, when present, must be an array.                                               | `TypeError`   |
-| 6 | Each entry in `agents` must be a non-empty string.                                     | `TypeError`   |
+| #   | Rule                                                                     | Error type  |
+| --- | ------------------------------------------------------------------------ | ----------- |
+| 1   | The top-level value must be a non-null, non-array object.                | `TypeError` |
+| 2   | `aipmVersion` must be present and equal to `"1"`.                        | `TypeError` |
+| 3   | `dependencies` must be present and must be a non-null, non-array object. | `TypeError` |
+| 4   | Each value in `dependencies` must be a non-empty string.                 | `TypeError` |
+| 5   | `agents`, when present, must be an array.                                | `TypeError` |
+| 6   | Each entry in `agents` must be a non-empty string.                       | `TypeError` |
 
 ---
 
@@ -166,9 +166,9 @@ The following rules are enforced by `parseProjectManifest` (exported from
   "description": "AI artifact dependencies for the Acme platform monorepo",
   "dependencies": {
     "@acme/code-review-skill": "^1.2.0",
-    "@acme/git-workflow":       "~3.0.0",
-    "@aipm/policy-base":        "1.4.2",
-    "@corp/mcp-search-server":  "^0.9.0"
+    "@acme/git-workflow": "~3.0.0",
+    "@aipm/policy-base": "1.4.2",
+    "@corp/mcp-search-server": "^0.9.0"
   },
   "agents": ["claude", "copilot"]
 }

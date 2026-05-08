@@ -65,7 +65,9 @@ export function parseProjectManifest(raw: unknown): ProjectManifest {
   }
   if (obj['agents'] !== undefined) {
     if (!Array.isArray(obj['agents'])) {
-      throw new TypeError('manifest.json "agents" must be an array when present');
+      throw new TypeError(
+        'manifest.json "agents" must be an array when present',
+      );
     }
     for (const agent of obj['agents'] as unknown[]) {
       if (typeof agent !== 'string' || !agent) {
